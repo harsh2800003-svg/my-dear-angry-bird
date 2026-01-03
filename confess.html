@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Favorite Person</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Quicksand:wght@300;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --soft-pink: #fce4ec;
+            --deep-rose: #d8819d;
+            --aesthetic-white: #fffafa;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--soft-pink);
+            font-family: 'Quicksand', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #5a5a5a;
+        }
+
+        .envelope-wrapper {
+            background: var(--aesthetic-white);
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(216, 129, 157, 0.2);
+            text-align: center;
+            max-width: 400px;
+            width: 85%;
+            border: 1px solid #fceef2;
+        }
+
+        .polaroid {
+            background: white;
+            padding: 15px 15px 40px 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transform: rotate(-3deg);
+            margin-bottom: 30px;
+            transition: 0.5s;
+        }
+
+        .polaroid:hover {
+            transform: rotate(0deg) scale(1.05);
+        }
+
+        .polaroid img {
+            width: 100%;
+            border-radius: 5px;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            color: var(--deep-rose);
+            font-size: 2.2rem;
+            margin: 10px 0;
+        }
+
+        p {
+            line-height: 1.6;
+            font-size: 1rem;
+            margin-bottom: 25px;
+        }
+
+        .apology-box {
+            background: #fff;
+            padding: 20px;
+            border-left: 3px solid var(--deep-rose);
+            font-style: italic;
+            margin-bottom: 25px;
+            text-align: left;
+            font-size: 0.95rem;
+            display: none; /* Hidden at first */
+            animation: slideDown 1s forwards;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .btn {
+            background-color: var(--deep-rose);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 500;
+            transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(216, 129, 157, 0.3);
+        }
+
+        .btn:hover {
+            background-color: #c06c84;
+            transform: translateY(-2px);
+        }
+
+        .floating-hearts {
+            position: absolute;
+            font-size: 20px;
+            color: var(--deep-rose);
+            opacity: 0.6;
+            pointer-events: none;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="envelope-wrapper">
+        <div class="polaroid">
+            <img src="https://tenor.com/en-GB/view/peach-goma-gif-8298127075701783383" alt="Thinking of you">
+        </div>
+
+        <h1>Hey Bub...</h1>
+        <p>I've been feeling so empty because I know I haven't been my best self for you lately.Tu hamesha sabse pyaari hai mujhe khudse bhi zydaa....</p>
+        
+        <button class="btn" id="openBtn" onclick="revealMessage()">Read my heart?</button>
+
+        <div id="apologyMessage" class="apology-box">
+            "I am so sorry for every mistake I’ve made. I hate that I’ve caused you pain. Eveyrthing is worthless without you...i will change everything as you say i just want you to feel safe with me like before <b>I can’t be okay without you</b>—you are my safe place and my favorite person. Can we please start over?"
+            <br><br>
+            <center>❤️</center>
+        </div>
+
+        <div id="finalChoice" style="display:none; margin-top:20px;">
+            <p>Please can you trust me like before and be how we were </p>
+            <button class="btn" style="background: #a8dadc;" onclick="forgiven()">Yes, come here</button>
+            <button class="btn" id="noBtn" onmouseover="moveNo()" style="background: #ccc; margin-left: 10px;">No</button>
+        </div>
+    </div>
+
+    <script>
+        // Create falling hearts background
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('floating-hearts');
+            heart.innerHTML = '🌸';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+            heart.style.top = '-20px';
+            document.body.appendChild(heart);
+
+            let top = -20;
+            setInterval(() => {
+                top += 2;
+                heart.style.top = top + 'px';
+                if(top > window.innerHeight) heart.remove();
+            }, 20);
+        }
+
+        setInterval(createHeart, 800);
+
+        function revealMessage() {
+            document.getElementById('openBtn').style.display = 'none';
+            document.getElementById('apologyMessage').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('finalChoice').style.display = 'block';
+            }, 2000);
+        }
+
+        function moveNo() {
+            const btn = document.getElementById('noBtn');
+            const x = Math.random() * (window.innerWidth - 100);
+            const y = Math.random() * (window.innerHeight - 100);
+            btn.style.position = 'fixed';
+            btn.style.left = x + 'px';
+            btn.style.top = y + 'px';
+        }
+
+        function forgiven() {
+            document.querySelector('.envelope-wrapper').innerHTML = `
+                <img src="https://tenor.com/en-GB/view/peach-goma-peach-and-goma-peach-peach-cat-sparkle-gif-11975191960342404712" width="150">
+                <h1>I love you!</h1>
+                <p>I will never let you feel fearful and will always be yours ✨</p>
+            `;
+        }
+    </script>
+</body>
+</html>
